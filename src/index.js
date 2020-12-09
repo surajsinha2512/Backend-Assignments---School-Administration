@@ -45,9 +45,12 @@ app.put('/api/student/:id',(req,res)=>{
     const update =req.body;
    const {name ,currentClass,division}=update;
     const matchIdx= localStudentArray.findIndex(student=>student.id===Number(idToSearch))
-    if(matchIdx===-1)
+    if(matchIdx===-1){
     res.sendStatus(400);
-    else if(isNullOrUndefined(name) && isNullOrUndefined(currentClass) && isNullOrUndefined(division)){
+    }
+    else{
+        
+     if(isNullOrUndefined(name) && isNullOrUndefined(currentClass) && isNullOrUndefined(division)){
       res.sendStatus(400)
     }
         else {
@@ -63,6 +66,7 @@ app.put('/api/student/:id',(req,res)=>{
        
            res.sendStatus(200)
     }
+}
    
  
 })
