@@ -41,35 +41,34 @@ app.post('/api/student',(req,res)=>{
 })
 
 app.put('/api/student/:id',(req,res)=>{
-    const idToSearch=req.params.id;
-    const update =req.body;
-   const {name ,currentClass,division}=update;
-    const matchIdx= localStudentArray.findIndex(student=>student.id===Number(idToSearch))
-    if(matchIdx===-1){
-    res.sendStatus(400);
+    const idToSearch=req.params.id
+    const update=req.body
+    const {name,currentClass,division}=update
+    const matchedIdx=studentArray.findIndex((student)=>student.id===Number(idToSearch))
+    if(matchedIdx===-1){
+        res.sendStatus(400)
     }
     else{
-        
-     if(isNullOrUndefined(name) && isNullOrUndefined(currentClass) && isNullOrUndefined(division)){
-      res.sendStatus(400)
+        if(
+            isNullOrUndefined(name) && 
+            isNullOrUndefined(currentClass) && 
+            isNullOrUndefined(division)){
+            res.sendStatus(400)
+        }
+        else{
+            if(!isNullOrUndefined(name)){
+                studentArray[matchedIdx].name=name
+            }
+            if(!isNullOrUndefined(currentClass)){
+            studentArray[matchedIdx].currentClass=Number(currentClass)
+           }
+           if(!isNullOrUndefined(division)){
+            studentArray[matchedIdx].division=division
+        }
+        res.sendStatus(200)
+        }
     }
-        else {
-        if(!isNullOrUndefined(name)){
-            localStudentArray[matchIdx].name=name;
-        }
-         if(!isNullOrUndefined(currentClass)){
-            localStudentArray[matchIdx].currentClass=Number(currentClass);
-        }
-         if(!isNullOrUndefined(division)){
-            localStudentArray[matchIdx].division=division;
-        }
-       
-           res.sendStatus(200)
-    }
-}
-   
- 
-})
+  })
 
 
 
